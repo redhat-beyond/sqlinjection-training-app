@@ -58,11 +58,11 @@ ini_set('display_errors', 1);
         <div class="col-lg-6">
 
 <?php
-   function anti_SQL_injection($my_string){
+   function antiinjection($my_string){
      $flag = preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $my_string);
       if($flag == 1)
 {
-         print("Username has not been accepted - invalid character. No SQL injection in our class;
+         print("Username has not been accepted - invalid character. No SQL INJECTION inour house");
          exit();
 }
    }
@@ -75,7 +75,7 @@ ini_set('display_errors', 1);
 if (!empty($_REQUEST['uid'])) {
 $username = ($_REQUEST['uid']);
 $pass = $_REQUEST['password'];
-anti_SQL_injection($username);
+antiinjection($username);
 
 $q = "SELECT * FROM users where username='".$username."' AND password = '".md5($pass)."'" ;
 
