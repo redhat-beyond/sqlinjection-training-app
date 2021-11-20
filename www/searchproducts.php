@@ -51,19 +51,23 @@ ini_set('display_errors', 1);
 		<br />
 
 <?php
-if (isset($_POST["searchitem"])) {
-
-$q = "Select * from products where product_name like '".$_POST["searchitem"]."%'";
-
-if (isset($_GET['debug']))
+   function antiinjection($my_string){
+     $flag = preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $my_string);
+      if($flag == 1)
 {
-	if ($_GET['debug']=="true")
-{
-	$msg="<div style=\"border:1px solid #4CAF50; padding: 10px\">".$q."</div><br/>";
-	echo $msg;
-	}
+         print("Username has not been accepted - invalid character. No SQL INJECTION inour house");
+         exit();
 }
-}
+   }
+?>
+
+<?php
+$si=($_POST["searchitem"]);
+antiinjection($si);
+
+$q = "Select * from products where product_name like '".$si."%'";
+
+
 
 ?>
 
