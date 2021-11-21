@@ -1,11 +1,11 @@
 <?php
 ob_start();
 session_start();
-include("db_config.php");
-if (!$_SESSION["username"]){
-header('Location:login1.php?msg=1');
+include "db_config.php";
+if (!$_SESSION["username"]) {
+    header("Location:login1.php?msg=1");
 }
-ini_set('display_errors', 1);
+ini_set("display_errors", 1);
 ?>
 <!-- Enable debug using ?debug=true" -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -50,22 +50,22 @@ ini_set('display_errors', 1);
         
 		<br />
 
-<?php
-if (isset($_POST["searchitem"])) {
+<?php if (isset($_POST["searchitem"])) {
+    $q =
+        "Select * from products where product_name like '" .
+        $con->real_escape_string($_POST["searchitem"]) .
+        "%'";
 
-$q = "Select * from products where product_name like '".$_POST["searchitem"]."%'";
-
-if (isset($_GET['debug']))
-{
-	if ($_GET['debug']=="true")
-{
-	$msg="<div style=\"border:1px solid #4CAF50; padding: 10px\">".$q."</div><br/>";
-	echo $msg;
-	}
-}
-}
-
-?>
+    if (isset($_GET["debug"])) {
+        if ($_GET["debug"] == "true") {
+            $msg =
+                "<div style=\"border:1px solid #4CAF50; padding: 10px\">" .
+                $q .
+                "</div><br/>";
+            echo $msg;
+        }
+    }
+} ?>
 
 <div class="searchheader" style="color:white">
 <table>	
@@ -89,30 +89,33 @@ if (isset($_GET['debug']))
  
 </tr>
 
-<?php
-
-if (isset($_POST["searchitem"])) {
-$result = mysqli_query($con,$q);
-if (!$result)
-{
-		echo("</table></div>".mysqli_error($con));
-}else{
-
-while($row = mysqli_fetch_array($result))
-  {
-  echo "<tr><td style=\"width:200px\">".$row[1]."</td><td style=\"width:200px\">".$row[2]."</td><td style=\"width:450px\">".$row[3]."</td><td style=\"width:110px\">".$row[4]."</td></tr>";
-  }
-
-}
-}
-?>
+<?php if (isset($_POST["searchitem"])) {
+    $result = mysqli_query($con, $q);
+    if (!$result) {
+        echo "</table></div>" . mysqli_error($con);
+    } else {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr><td style=\"width:200px\">" .
+                $row[1] .
+                "</td><td style=\"width:200px\">" .
+                $row[2] .
+                "</td><td style=\"width:450px\">" .
+                $row[3] .
+                "</td><td style=\"width:110px\">" .
+                $row[4] .
+                "</td></tr>";
+        }
+    }
+} ?>
 </table>
 	</div>
 
 	  
 	  
 	  <div class="footer">
-	  <p><h4><a href="blindsqli.php?user=<?php echo $_SESSION['username'];?>">Profile</a> | <a href="logout.php">Logout</a> | <a href="index.php">Home</a><h4></p>
+	  <p><h4><a href="blindsqli.php?user=<?php echo $_SESSION[
+       "username"
+   ]; ?>">Profile</a> | <a href="logout.php">Logout</a> | <a href="index.php">Home</a><h4></p>
       </div>
 	  
 	  

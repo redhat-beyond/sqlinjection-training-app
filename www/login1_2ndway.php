@@ -14,7 +14,7 @@ ini_set("display_errors", 1);
 
   <body>
   <div class="container-narrow">
-
+		
 		<div class="jumbotron">
 			<p class="lead" style="color:white">
 				Login Page 1 - Simple Login Bypass
@@ -34,7 +34,7 @@ ini_set("display_errors", 1);
     } ?>
 			</p>
         </div>
-
+		
 		<div class="response">
 		<form method="POST" autocomplete="off">
 			<p style="color:white">
@@ -48,10 +48,10 @@ ini_set("display_errors", 1);
 			</p>
 		</form>
         </div>
-
-
+    
+        
 		<br />
-
+		
       <div class="row marketing">
         <div class="col-lg-6">
 
@@ -60,14 +60,10 @@ ini_set("display_errors", 1);
 if (!empty($_REQUEST["uid"])) {
     $username = $_REQUEST["uid"];
     $pass = $_REQUEST["password"];
-    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $username)) {
-        echo "<font style=\"color:#FF0000\">Invalid uesrname! use only allowed characters!</font\>";
-        exit();
-    }
 
     $q =
         "SELECT * FROM users where username='" .
-        $username .
+        $con->real_escape_string($username) .
         "' AND password = '" .
         md5($pass) .
         "'";
@@ -118,7 +114,7 @@ if (!empty($_REQUEST["uid"])) {
                 header("Location: os_sqli.php?user=" . $_SESSION["username"]);
             }
         } else {
-            echo "<font style=\"color:#FF0000\">Invalid password!</font\>";
+            echo "<font style=\"color:#FF0000\">Invalid username/password!</font\>";
         }
     }
 }
@@ -127,7 +123,7 @@ if (!empty($_REQUEST["uid"])) {
 
 	</div>
 	</div>
-
+	  
 	  <div class="footer">
 		<p><h4><a href="index.php">Home</a><h4></p>
       </div>
@@ -136,6 +132,6 @@ if (!empty($_REQUEST["uid"])) {
 		<p><a href="https://appsecco.com">Appsecco</a> | Riyaz Walikar | <a href="https://twitter.com/riyazwalikar">@riyazwalikar</a></p>
     </div>
 	</div> <!-- /container -->
-
+  
 </body>
-</html> 
+</html>
